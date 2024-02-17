@@ -1,59 +1,87 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+<script lang="ts">
+  import logo from '$lib/images/paaty-logo.png'
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import AiOutlineSearch  from 'svelte-icons-pack/ai/AiOutlineSearch';
+
+  let searchQuery: string = "";
+
+  function search(): void {
+    if (searchQuery.trim() !== "") {
+      // Redirect to search results page with the search query
+      const url = `https://www.google.com/search?q=${encodeURIComponent(
+        searchQuery
+      )}`;
+      window.location.href = url;
+    }
+  }
+
+  function handleKeyDown(event: KeyboardEvent): void {
+    if(event.key === 'Enter') {
+      search()
+    }
+  }
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
+<style lang="scss">
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    gap: 2vh;
+  }
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+  .search-container {
+    display: flex;
+    align-items: center;
+    width: 500px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-		to your new<br />SvelteKit app
-	</h1>
+  .search-logo {
+    width: 272px; 
+    user-select: none;
+  }
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
+  .search-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+  }
 
-	<Counter />
-</section>
+  .search-button {
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 25px;
+    background-color: #1a73e8;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
+  .search-button:hover {
+    background-color: #0f62fe;
+  }
 </style>
+
+<div class="container">
+  <img src={logo} alt="Logo" class="search-logo" />
+  <div class="search-container">
+    <Icon src={AiOutlineSearch} color="gray" size="20" className="custom-icon" title="Custom icon params" />
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Launch search party here"
+      bind:value={searchQuery}
+      on:keydown={handleKeyDown}
+    />
+    <button class="search-button" on:click={search}>Launch</button>
+  </div>
+</div> 
