@@ -1,42 +1,63 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { goto } from '$app/navigation'
   import logo from '$lib/images/paaty-logo.png'
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineSearch  from 'svelte-icons-pack/ai/AiOutlineSearch';
+  import { selectedTab } from '../stores'
 
   let searchQuery: string = "";
 
-  function search(): void {
+  function handleSearch(): void {
     if (searchQuery.trim() !== "") {
-      // Redirect to search results page with the search query
-      const url = `https://www.google.com/search?q=${encodeURIComponent(
-        searchQuery
-      )}`;
-      window.location.href = url;
+      let url:string =''
+      
+      switch($page.url.pathname) {
+        case '/':
+          url = 'all'
+          selectedTab.set(url)
+          break
+
+        case '/images':
+          url = 'images'
+          selectedTab.set(url)
+          break
+
+        case '/news':
+          url = 'news'
+          selectedTab.set(url)
+          break
+
+        default: 
+          break;
+      }
+
+      /* Redirect to search results page with the search query */
+      goto(`/search/${url}?q=${searchQuery}`)
     }
   }
 
   function handleKeyDown(event: KeyboardEvent): void {
     if(event.key === 'Enter') {
-      search()
+      handleSearch()
     }
   }
 </script>
 
 <div class="container">
 	<div class="search-logo">
-		<img src={logo} alt="Logo" />
+		<img src={logo} alt="search-party-logo" />
 		<div>{$page.url.pathname.substring(1)}</div>
 	</div>
   <div class="search-input">
-    <Icon src={AiOutlineSearch} color="gray" size="20" className="custom-icon" title="Custom icon params" />
+    <Icon src={AiOutlineSearch} color="gray" size="20" />
     <input
       type="text"
       placeholder="Launch search party here"
       bind:value={searchQuery}
       on:keydown={handleKeyDown}
     />
-    <button class="search-button" on:click={search}>Launch</button>
+    <button on:click={handleSearch}>Launch</button>
   </div>
 </div> 
 

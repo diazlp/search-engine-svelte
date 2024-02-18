@@ -1,10 +1,17 @@
 <script lang='ts'>
-	const year = new Date().getFullYear()
-
 	import Header from './Header.svelte';
+	import {page} from '$app/stores'
 	import './styles.css';
+
+	const year = new Date().getFullYear()
 </script>
 
+
+{#if $page.url.pathname.includes('/search')}
+<div class="app">
+		<slot />
+</div>
+{:else}
 <div class="app">
 	<Header />
 
@@ -16,6 +23,8 @@
 		<p>Copyright &copy; {year} Diaz Linggaputra</p>
 	</footer>
 </div>
+{/if}
+
 
 <style lang="scss">
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
