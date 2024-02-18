@@ -1,14 +1,20 @@
-<script>
+<script lang='ts'>
+	const year = new Date().getFullYear()
+
 	import Header from './Header.svelte';
 	import './styles.css';
 </script>
 
 <div class="app">
-	<!-- <Header /> -->
+	<Header />
 
 	<main >
 		<slot />
 	</main>
+
+	<footer>
+		<p>Copyright &copy; {year} Diaz Linggaputra</p>
+	</footer>
 </div>
 
 <style lang="scss">
@@ -19,6 +25,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+		overflow-y: hidden;
 	}
 
 	main {
@@ -31,4 +38,15 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
+
+	footer {
+    color: #b3afaf; 
+		font-weight: 500;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
 </style>

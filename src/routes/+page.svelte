@@ -22,6 +22,21 @@
   }
 </script>
 
+<div class="container">
+  <img src={logo} alt="Logo" class="search-logo" />
+  <div class="search-container">
+    <Icon src={AiOutlineSearch} color="gray" size="20" className="custom-icon" title="Custom icon params" />
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Launch search party here"
+      bind:value={searchQuery}
+      on:keydown={handleKeyDown}
+    />
+    <button class="search-button" on:click={search}>Launch</button>
+  </div>
+</div> 
+
 <style lang="scss">
   .container {
     display: flex;
@@ -70,18 +85,3 @@
     background-color: #0f62fe;
   }
 </style>
-
-<div class="container">
-  <img src={logo} alt="Logo" class="search-logo" />
-  <div class="search-container">
-    <Icon src={AiOutlineSearch} color="gray" size="20" className="custom-icon" title="Custom icon params" />
-    <input
-      type="text"
-      class="search-input"
-      placeholder="Launch search party here"
-      bind:value={searchQuery}
-      on:keydown={handleKeyDown}
-    />
-    <button class="search-button" on:click={search}>Launch</button>
-  </div>
-</div> 
