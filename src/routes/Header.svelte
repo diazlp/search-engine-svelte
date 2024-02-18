@@ -27,8 +27,8 @@
 		a {
 			text-decoration: none;
 			color: #333;
-			font-weight: bold;
-			padding: 10px 20px;
+			font-weight: lighter;
+			padding: 10px;
 			margin: 0 10px;
 			border-radius: 5px;
 			transition: background-color 0.3s ease;
@@ -36,6 +36,8 @@
 	}
 
 	a[aria-current="page"] {
-		color: var(--color-theme-2);
+		color: var(--color-theme-1);
+		font-weight: bold;
+		text-decoration: underline;
 	}
 </style>
