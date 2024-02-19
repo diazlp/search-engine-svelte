@@ -1,3 +1,4 @@
-import { writable } from 'svelte/store'
+import { type Writable, writable } from 'svelte/store'
 
-export const selectedTab = writable('')
+export const selectedTab: Writable<string> = writable('')
+export const searchAllResult: Writable<any> = writable([])

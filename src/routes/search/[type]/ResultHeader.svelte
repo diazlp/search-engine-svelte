@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
   import logo from '$lib/images/paaty-logo.png'
-
+	
 	function handleImageClick(): void {
 		goto('/')
 	}

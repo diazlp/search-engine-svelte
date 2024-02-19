@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import {page} from '$app/stores'
+  import { page } from '$app/stores'
 	import { selectedTab } from '../../../stores'
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import BsSearch from "svelte-icons-pack/bs/BsSearch";
@@ -17,6 +17,7 @@
 	function handleSelectedTab(name: string): void {
 		selectedTab.set(name)
     goto(`${name}?q=${queryParams}`)
+		// will fetch here
 	}
 </script>
 
@@ -44,6 +45,7 @@
 		div {
 			display: flex;
 			margin: 0 1rem;
+
 			button {
 				background: transparent;
 				border: none;
@@ -57,6 +59,7 @@
 				gap: 0.350rem;
 				color: gray;
 			}
+			
 			button[aria-current=true] {
 				border-bottom: 2px solid var(--color-theme-2);
 				color: var(--color-theme-2);
