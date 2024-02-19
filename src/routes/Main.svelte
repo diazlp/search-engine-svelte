@@ -1,32 +1,38 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+  import { selectedTab } from '../stores'
+  import { SearchType } from '$lib/types/enum'
   import { page } from '$app/stores';
   import { goto } from '$app/navigation'
   import logo from '$lib/images/paaty-logo.png'
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineSearch  from 'svelte-icons-pack/ai/AiOutlineSearch';
-  import { selectedTab } from '../stores'
 
   let searchQuery: string = "";
 
+  onMount(() => {
+    selectedTab.set($page.url.pathname.substring(1))
+  })
+
   function handleSearch(): void {
     if (searchQuery.trim() !== "") {
-      let url:string =''
+      let url: string =''
       
       switch($page.url.pathname) {
         case '/':
-          url = 'all'
+          url = SearchType.ALL
           selectedTab.set(url)
-          break
+          break;
 
         case '/images':
-          url = 'images'
+          url = SearchType.IMAGES
           selectedTab.set(url)
-          break
+          break;
 
         case '/news':
-          url = 'news'
+          url = SearchType.NEWS
           selectedTab.set(url)
-          break
+          break;
 
         default: 
           break;
@@ -57,7 +63,7 @@
       bind:value={searchQuery}
       on:keydown={handleKeyDown}
     />
-    <button on:click={handleSearch}>Launch</button>
+    <!-- <button on:click={handleSearch}>Start</button> -->
   </div>
 </div> 
 
@@ -105,18 +111,18 @@
     	border-radius: 25px;
     	outline: none;
 		}
-		button {
-			padding: 10px;
-			font-size: 14px;
-			border: none;
-			border-radius: 25px;
-			background-color: #1a73e8;
-			color: white;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-			&:hover {
-				background-color: #0f62fe;
-			}
-		}
+		// button {
+		// 	padding: 10px;
+		// 	font-size: 14px;
+		// 	border: none;
+		// 	border-radius: 25px;
+		// 	background-color: #1a73e8;
+		// 	color: white;
+		// 	cursor: pointer;
+		// 	transition: background-color 0.3s ease;
+		// 	&:hover {
+		// 		background-color: #0f62fe;
+		// 	}
+		// }
   }
 </style>

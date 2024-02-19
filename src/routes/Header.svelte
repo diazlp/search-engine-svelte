@@ -1,12 +1,19 @@
-<script>
-	import { page } from '$app/stores';
+<script lang="ts">
+	import { selectedTab } from '../stores'
+	import { SearchType } from '$lib/types/enum'
+
+	let selected_tab: string;
+
+	selectedTab.subscribe((value) => {
+		selected_tab = value
+	})
 </script>
 
 <header>
 	<nav>
-		<a href="/" aria-current={$page.url.pathname === '/' ? 'page' : undefined}>Search</a>
-		<a href="/images" aria-current={$page.url.pathname === '/images' ? 'page' : undefined}>Images</a>
-		<a href="/news" aria-current={$page.url.pathname === '/news' ? 'page' : undefined}>News</a>
+		<a href="/" aria-current={selected_tab === '' || selected_tab === SearchType.ALL? 'page' : undefined}>Search</a>
+		<a href="/images" aria-current={selected_tab === SearchType.IMAGES ? 'page' : undefined}>Images</a>
+		<a href="/news" aria-current={selected_tab === SearchType.NEWS ? 'page' : undefined}>News</a>
 	</nav>
 </header>
 
