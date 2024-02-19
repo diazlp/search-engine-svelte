@@ -8,9 +8,7 @@
 
 
 {#if $page.url.pathname.includes('/search')}
-	<div class="app">
-			<slot />
-	</div>
+	<slot />
 {:else}
 	<div class="app">
 		<Header />
