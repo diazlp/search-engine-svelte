@@ -8,23 +8,22 @@
 
 
 {#if $page.url.pathname.includes('/search')}
-<div class="app">
-		<slot />
-</div>
+	<div class="app">
+			<slot />
+	</div>
 {:else}
-<div class="app">
-	<Header />
+	<div class="app">
+		<Header />
 
-	<main >
-		<slot />
-	</main>
+		<main >
+			<slot />
+		</main>
 
-	<footer>
-		<p>Copyright &copy; {year} Diaz Linggaputra</p>
-	</footer>
-</div>
+		<footer>
+			<p>Copyright &copy; {year} Diaz Linggaputra</p>
+		</footer>
+	</div>
 {/if}
-
 
 <style lang="scss">
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
