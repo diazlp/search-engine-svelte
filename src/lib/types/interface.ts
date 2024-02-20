@@ -14,4 +14,11 @@ export interface ImageResult {
   domain?: string;
 }
 
-export interface NewsResult {}
+export interface NewsResult {
+  date: string;
+  title: string;
+  body: string;
+  url: string;
+  image: string;
+  source: string;
+}

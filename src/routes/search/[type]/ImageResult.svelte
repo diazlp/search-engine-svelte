@@ -2,25 +2,25 @@
   import { searchImagesResult } from "../../../stores";
   import { type ImageResult } from '$lib/types/interface'
 
-  // let results: ImageResult[] = Array.from({ length: 20 }, (_, index) => ({
-  //   title: 'Diaz Linggaputra - Tomei Consolidated Bhd',
-  //   image: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Raline_Shah_in_an_interview_with_Anas_Bukhash.png',
-  //   thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Raline_Shah_in_an_interview_with_Anas_Bukhash.png',
-  //   url: 'https://id.linkedin.com/in/diaz-linggaputra-40a4a9135',
-  //   domain: 'LinkedIn'
-  // }));
+  let results: ImageResult[] = Array.from({ length: 20 }, (_) => ({
+    title: 'Diaz Linggaputra - Tomei Consolidated Bhd',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Raline_Shah_in_an_interview_with_Anas_Bukhash.png',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Raline_Shah_in_an_interview_with_Anas_Bukhash.png',
+    url: 'https://id.linkedin.com/in/diaz-linggaputra-40a4a9135',
+    domain: 'LinkedIn'
+  }));
 
-  let results: ImageResult[]
-  searchImagesResult.subscribe((value: ImageResult[]) => {
-    results = value?.map(({url, ...rest}: ImageResult) => {
-      const regex = /(?:https?:\/\/)?(?:www\.)?([^\/]+)/;
-      const match = url.match(regex);
+  // let results: ImageResult[]
+  // searchImagesResult.subscribe((value: ImageResult[]) => {
+  //   results = value?.map(({url, ...rest}: ImageResult) => {
+  //     const regex = /(?:https?:\/\/)?(?:www\.)?([^\/]+)/;
+  //     const match = url.match(regex);
 
-      const domain = match?.[1]
+  //     const domain = match?.[1]
 
-      return { ...rest, url, domain}
-    })
-  })
+  //     return { ...rest, url, domain}
+  //   })
+  // })
 </script>
 
 <div class="results-wrapper">

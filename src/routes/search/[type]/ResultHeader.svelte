@@ -43,7 +43,7 @@
 
 				case SearchType.NEWS:
 					searchNewsResult.set(data.items);
-					// searchNewsResult.set(data.result);
+					// searchNewsResult.set(data.news);
 					break;
 
 				default:
@@ -109,6 +109,11 @@
 			align-items: center;
 			flex-direction: row;
 			padding: 1rem 2rem;
+
+			@media (min-width: 640px) {
+				padding-left: 2rem;
+				padding-right: 2rem;
+			}
 
 			button {
 				cursor: pointer;

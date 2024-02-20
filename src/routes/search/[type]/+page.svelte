@@ -8,6 +8,7 @@
   import ResultNav from './ResultNav.svelte'
 	import AllResult from './AllResult.svelte'
   import ImageResult from './ImageResult.svelte'
+  import NewsResult from './NewsResult.svelte'
 	const { type } = $page.params
 	const queryParams = $page.url.searchParams.get('q')
 
@@ -60,8 +61,8 @@
 				break;
 
 			case SearchType.NEWS:
-				searchImagesResult.set(data.items);
-				// searchNewsResult.set(data.result);
+				// searchNewsResult.set(data.items);
+				searchNewsResult.set(data.news);
 				break;
 
 			default:
@@ -85,6 +86,8 @@
 			<AllResult />
 		{:else if selected_tab === SearchType.IMAGES}
 			<ImageResult />
+		{:else if selected_tab === SearchType.NEWS}
+			<NewsResult />
 		{/if}
 	</div>
 </div>

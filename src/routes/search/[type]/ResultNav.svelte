@@ -40,8 +40,8 @@
 				break;
 
 			case SearchType.NEWS:
-				searchNewsResult.set(data.items);
-				// searchNewsResult.set(data.result);
+				// searchNewsResult.set(data.items);
+				searchNewsResult.set(data.news);
 				break;
 
 			default:
