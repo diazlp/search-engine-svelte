@@ -25,11 +25,11 @@
 
 <div>
   <div class="result-item">
-    <span>diazlinggaputra.com</span>
     <div class="personal-ads">
-      <span>[ADS]</span>
-      <a href="https://diazlinggaputra.vercel.app/" target="_blank">Diaz Linggaputra</a>
+      <span class="ads">Ad</span>
+      <span>diazlinggaputra.com</span>
     </div>
+      <a href="https://diazlinggaputra.vercel.app/" target="_blank">Diaz Linggaputra</a>
     <p>Welcome to my digital realm! I am a Software Developer dedicated to crafting refined solutions that sculpt seamless user experiences, striving to pursue excellence in my work and delivering exceptional result</p>
   </div>
   {#each results as result}
@@ -79,15 +79,17 @@
       align-items: center;
       gap: 5px;
 
-      a {
-			color: rgb(29,78,216); 
-    	font-size: 1.25rem;
-			font-weight: 500;
-		  }
-
       span {
-        font-weight: bolder;
-        font-size: 1.2rem;
+        color: rgb(107,114,128);
+        display: block;
+        font-size: 0.875rem;
+		  }
+      .ads {
+        color: rgb(255, 255, 255);
+        // background-olor: rgb(255, 166, 0);
+        background-color: var(--color-theme-1);
+        padding: 1px 3px;
+        border-radius: 5px;
       }
     }
   }
