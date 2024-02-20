@@ -32,15 +32,15 @@
 			/*Update corresponding store*/
 			switch(type) {
 				case SearchType.ALL:
-					searchAllResult.set(data.items);
+					// searchAllResult.set(data.results);
 					break;
 
 				case SearchType.IMAGES:
-					searchImagesResult.set(data.items);
+					// searchImagesResult.set(data.results);
 					break;
 
 				case SearchType.NEWS:
-					searchNewsResult.set(data.items);
+					// searchNewsResult.set(data.results);
 					break;
 
 				default:

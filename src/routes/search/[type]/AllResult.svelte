@@ -29,7 +29,7 @@
       <span class="ads">Ad</span>
       <span>diazlinggaputra.com</span>
     </div>
-      <a href="https://diazlinggaputra.vercel.app/" target="_blank">Diaz Linggaputra</a>
+    <a href="https://diazlinggaputra.vercel.app/" target="_blank">Diaz Linggaputra</a>
     <p>Welcome to my digital realm! I am a Software Developer dedicated to crafting refined solutions that sculpt seamless user experiences, striving to pursue excellence in my work and delivering exceptional result</p>
   </div>
   {#each results as result}

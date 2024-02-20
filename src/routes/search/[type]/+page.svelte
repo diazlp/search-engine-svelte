@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { searchAllResult } from '../../../stores'
+	import { searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
+	import { SearchType } from '$lib/types/enum'
 	// import { fly } from 'svelte/transition'
 	import { page } from '$app/stores'
 	import ResultHeader from './ResultHeader.svelte';
   import ResultNav from './ResultNav.svelte'
 	import AllResult from './AllResult.svelte'
+  import ImageResult from './ImageResult.svelte'
 	const { type } = $page.params
 	const queryParams = $page.url.searchParams.get('q')
 
 	let lastScrollTop = 0;
   let scrollingUp = true;
 
-	function handleScroll() {
+	function handleScroll(): void {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const header = document.querySelector('header');
 
@@ -35,11 +37,34 @@
     };
   });
 
-	onMount(async () => {
+	async function handleFetchResult(): Promise<void> {
+		/*Fetch current query params */
 		const response = await fetch(`/search?q=${queryParams}&type=${type}`)
 		const data = await response.json()
-		// searchAllResult.set(data.results)
-		searchAllResult.set(data.items)
+
+		/*Update corresponding store*/
+		switch(type) {
+			case SearchType.ALL:
+				searchAllResult.set(data.items);
+				// searchAllResult.set(data.results)
+				break;
+
+			case SearchType.IMAGES:
+				searchImagesResult.set(data.items);
+				// searchImagesResult.set(data.results);
+				break;
+
+			case SearchType.NEWS:
+				// searchNewsResult.set(data.results);
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	onMount(async () => {
+		await handleFetchResult()
 	});
 </script>
 
@@ -50,7 +75,11 @@
 	</header>
 
 	<div class="search-results">
-		<AllResult />
+		{#if type === SearchType.ALL}
+			<AllResult />
+		{:else if type === SearchType.IMAGES}
+			<ImageResult />
+		{/if}
 	</div>
 </div>
 
@@ -72,6 +101,10 @@
 
 	.search-results {
 		flex: 1;
-		margin-left: 11rem;
+		margin-left: 2rem;
+
+		@media (min-width: 1280px) {
+      margin-left: 11rem;
+    }
   }
 </style>
