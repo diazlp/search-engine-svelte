@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
+	import { selectedTab, searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
 	import { SearchType } from '$lib/types/enum'
 	// import { fly } from 'svelte/transition'
 	import { page } from '$app/stores'
@@ -13,6 +13,11 @@
 
 	let lastScrollTop = 0;
   let scrollingUp = true;
+	let selected_tab: string;
+
+	selectedTab.subscribe((value) => {
+		selected_tab = value
+	})
 
 	function handleScroll(): void {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -51,11 +56,12 @@
 
 			case SearchType.IMAGES:
 				searchImagesResult.set(data.items);
-				// searchImagesResult.set(data.results);
+				// searchImagesResult.set(data.result);
 				break;
 
 			case SearchType.NEWS:
-				// searchNewsResult.set(data.results);
+				searchImagesResult.set(data.items);
+				// searchNewsResult.set(data.result);
 				break;
 
 			default:
@@ -75,9 +81,9 @@
 	</header>
 
 	<div class="search-results">
-		{#if type === SearchType.ALL}
+		{#if selected_tab === SearchType.ALL}
 			<AllResult />
-		{:else if type === SearchType.IMAGES}
+		{:else if selected_tab === SearchType.IMAGES}
 			<ImageResult />
 		{/if}
 	</div>

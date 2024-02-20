@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { TOKEN, GOOGLE_SEARCH_ALL_API_KEY } from '$env/static/private';
+import { TOKEN, GOOGLE_SEARCH_ALL_API_KEY, GOOGLE_SEARCH_IMAGES_API_KEY } from '$env/static/private';
 import { SearchType } from '$lib/types/enum.js';
 
 export async function GET({ url }) {
@@ -30,6 +30,27 @@ export async function GET({ url }) {
       },
     )
   } else if(typeParams === SearchType.IMAGES) {
+    // response = await fetch(
+    //   `https://google-api31.p.rapidapi.com/imagesearch`,
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'X-RapidAPI-Key': GOOGLE_SEARCH_IMAGES_API_KEY,
+    //   		'X-RapidAPI-Host': 'google-api31.p.rapidapi.com'
+    //     },
+    //     body: JSON.stringify({
+    //       text: queryParams,
+    //       safesearch: 'off',
+    //       region: 'wt-wt',
+    //       color: "",
+    //       size: "",
+    //       type_image: "",
+    //       layout: "",
+    //       max_results: 100
+    //     })
+    //   },
+    // )
+
     response = await fetch(
       `https://api.raindrop.io/rest/v1/raindrops/41720507`,
       {

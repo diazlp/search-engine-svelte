@@ -1,20 +1,30 @@
 <script lang="ts">
   import { searchImagesResult } from "../../../stores";
-  import { type AllResult } from '$lib/types/interface'
+  import { type ImageResult } from '$lib/types/interface'
 
-  let isCardHovered: boolean = false;
+  // let results: ImageResult[] = Array.from({ length: 20 }, (_, index) => ({
+  //   title: 'Diaz Linggaputra - Tomei Consolidated Bhd',
+  //   image: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Raline_Shah_in_an_interview_with_Anas_Bukhash.png',
+  //   thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Raline_Shah_in_an_interview_with_Anas_Bukhash.png',
+  //   url: 'https://id.linkedin.com/in/diaz-linggaputra-40a4a9135',
+  //   domain: 'LinkedIn'
+  // }));
 
-  function handleHover() {
-    isCardHovered = true;
-  }
+  let results: ImageResult[]
+  searchImagesResult.subscribe((value: ImageResult[]) => {
+    results = value?.map(({url, ...rest}: ImageResult) => {
+      const regex = /(?:https?:\/\/)?(?:www\.)?([^\/]+)/;
+      const match = url.match(regex);
 
-  function handleMouseLeave() {
-    isCardHovered = false;
-  }
+      const domain = match?.[1]
+
+      return { ...rest, url, domain}
+    })
+  })
 </script>
 
 <div class="results-wrapper">
-  <div class="result-item" on:mouseenter={handleHover} on:mouseleave={handleMouseLeave} role="group">
+  <div class="result-item">
     <div class="result-image">
       <a href={'https://id.linkedin.com/in/diaz-linggaputra-40a4a9135'} target="_blank" rel="noreferrer">
         <img
@@ -29,7 +39,6 @@
         target="_blank"
         rel="noreferrer"
         class="main-description"
-        class:group-hovered={isCardHovered}
       >
         Diaz Linggaputra - Tomei Consolidated Bhd
       </a>
@@ -38,12 +47,41 @@
         target="_blank"
         rel="noreferrer"
         class="domain-description"
-        class:group-hovered={isCardHovered}
       >
         LinkedIn
       </a>
     </div>
   </div>
+  {#each results as result}
+    <div class="result-item">
+      <div class="result-image group">
+        <a href={result.url} target="_blank" rel="noreferrer">
+          <img
+            src={result.thumbnail}
+            alt={result.thumbnail}
+          />
+        </a>
+      </div>
+      <div class="result-description">
+        <a
+          href={result.url}
+          target="_blank"
+          rel="noreferrer"
+          class="main-description group"
+        >
+          {result.title}
+        </a>
+        <a
+          href={result.url}
+          target="_blank"
+          rel="noreferrer"
+          class="domain-description group"
+        >
+          {result.domain}
+        </a>
+      </div>
+    </div>
+  {/each}
 </div>
 
 <style lang="scss">
@@ -53,6 +91,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding-top: 1rem;
     padding-bottom: 2rem;
+    gap: 1rem; 
 
     @media (min-width: 640px) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -67,6 +106,7 @@
     }
 
     @media (min-width: 1280px) {
+      gap: 0;
       margin-left: -10rem;
       grid-template-columns: repeat(6, minmax(0, 1fr));
     }
@@ -90,6 +130,7 @@
         }
 
         img {
+          max-width: 200px;
           display: block;
           margin-left: auto;
           margin-right: auto;
@@ -97,29 +138,29 @@
           object-fit: contain;
         }
       }
-    }
 
-    .result-description {
-      cursor: pointer;
-      hyphens: auto;
+      .result-description {
+        cursor: pointer;
+        hyphens: auto;
 
-      .main-description {
-        display: block;
-        font-size: 0.75rem;
-        line-height: 1rem;
-        color: rgb(55, 65, 81);
+        .main-description {
+          display: block;
+          font-size: 0.75rem;
+          line-height: 1rem;
+          color: rgb(55, 65, 81);
+        }
+
+        .domain-description {
+          display: block;
+          font-size: 11px;
+          line-height: 15px;
+          color: rgb(107, 114, 128);
+        }
       }
 
-      .domain-description {
-        display: block;
-        font-size: 11px;
-        line-height: 15px;
-        color: rgb(107, 114, 128);
+      &:hover {
+       text-decoration-line: underline;
       }
-    }
-
-    .group-hovered {
-        text-decoration-line: underline;
     }
   }
 </style>
