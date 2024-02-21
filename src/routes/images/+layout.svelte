@@ -27,11 +27,16 @@
 	footer {
     color: #b3afaf; 
 		font-weight: 500;
+		font-size: 0.875rem;
     text-align: center;
     padding: 10px;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
+
+		@media (min-width: 1024px) {
+			font-size: 1rem;
+		}
   }
 </style>

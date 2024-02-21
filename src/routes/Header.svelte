@@ -27,24 +27,31 @@
     top: 0;
     left: 0;
     z-index: 10;
-	}
 
-	nav {
-		display: flex;
-		a {
-			text-decoration: none;
-			color: #333;
-			font-weight: lighter;
-			padding: 10px;
-			margin: 0 10px;
-			border-radius: 5px;
-			transition: background-color 0.3s ease;
+		nav {
+			display: flex;
+			a {
+				text-decoration: none;
+				color: #333;
+				font-size: 0.8rem;
+				font-weight: lighter;
+				padding: 10px;
+				margin: 0 3px;
+				border-radius: 5px;
+				transition: background-color 0.3s ease;
+
+				@media (min-width: 1024px) {
+					font-size: 1rem;
+					margin: 0 10px;
+				}
+			}
+
+			a[aria-current="page"] {
+				color: var(--color-theme-1);
+				font-weight: bold;
+				text-decoration: underline;
+			}
 		}
-	}
 
-	a[aria-current="page"] {
-		color: var(--color-theme-1);
-		font-weight: bold;
-		text-decoration: underline;
 	}
 </style>

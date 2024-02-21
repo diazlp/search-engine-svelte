@@ -99,11 +99,19 @@
   .search-input {
     display: flex;
     align-items: center;
-    width: 500px;
-    padding: 10px;
+    width: 90%;
+    max-width: 32rem;
+    padding: 5px;
+    font-size: 0.875rem;
     border-radius: 25px;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media (min-width: 1024px) {
+      padding: 10px;
+      font-size: 1rem;
+    }
+
 		input {
 			flex: 1;
     	padding: 10px;
