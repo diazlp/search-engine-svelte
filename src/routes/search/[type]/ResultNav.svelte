@@ -70,7 +70,11 @@
 <style lang="scss">
   nav {
 		box-shadow: 0 1px 0 rgba(0,0,0,0.15);
-		padding: 0 9rem;
+		padding: 0;
+
+		@media (min-width: 1024px) {
+			padding: 0 9rem;
+		}
 		div {
 			display: flex;
 			margin: 0 1rem;

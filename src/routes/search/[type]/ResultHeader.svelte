@@ -108,8 +108,8 @@
 			display: flex;
 			align-items: center;
 			flex-direction: row;
-			padding: 1rem 2rem;
-
+			padding: 1rem;
+			
 			@media (min-width: 640px) {
 				padding-left: 2rem;
 				padding-right: 2rem;
@@ -122,20 +122,27 @@
 				user-select: none;
 				img {	
 					margin-right: 1rem;
+
+					@media (min-width: 640px) {
+						margin-right: 2rem;
+					}
 				}	
 			}
 			
 			.search-input {
     		display: flex;
 				align-items: center;
-				width: 36rem;
+				width: 100%;
+   			max-width: 36rem;
 				padding: 10px;
 				border-radius: 25px;
 				background-color: white;
 				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 				input {
+					width: 100%;
 					flex: 1;
 					padding: 0 20px;
+					max-width: 36rem;
 					border: none;
 					border-radius: 1.5rem;
 					outline: none;
