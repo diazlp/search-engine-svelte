@@ -3,25 +3,25 @@
   import { type AllResult } from '$lib/types/interface'
 
   /*20 ITEMS TO POPULATE DUMMY ALL RESULT DATA*/
-  let results: AllResult[] = Array.from({ length: 20 }, (_, index) => ({
-    position: index + 1,
-    url: 'https://diazlinggaputra.vercel.app/',
-    title: 'Diaz Linggaputra',
-    description: 'Welcome to my digital realm! I am a Software Developer dedicated to crafting refined solutions that sculpt seamless user experiences, striving to pursue excellence in my work and delivering exceptional result',
-    domain: 'github.com'
-  }));
+  // let results: AllResult[] = Array.from({ length: 20 }, (_, index) => ({
+  //   position: index + 1,
+  //   url: 'https://diazlinggaputra.vercel.app/',
+  //   title: 'Diaz Linggaputra',
+  //   description: 'Welcome to my digital realm! I am a Software Developer dedicated to crafting refined solutions that sculpt seamless user experiences, striving to pursue excellence in my work and delivering exceptional result',
+  //   domain: 'github.com'
+  // }));
 
-  // let results: AllResult[]
-  // searchAllResult.subscribe((value: AllResult[]) => {
-  //   results = value?.map(({url, ...rest}: AllResult) => {
-  //     const regex = /(?:https?:\/\/)?(?:www\.)?([^\/]+)/;
-  //     const match = url.match(regex);
+  let results: AllResult[]
+  searchAllResult.subscribe((value: AllResult[]) => {
+    results = value?.map(({url, ...rest}: AllResult) => {
+      const regex = /(?:https?:\/\/)?(?:www\.)?([^\/]+)/;
+      const match = url.match(regex);
 
-  //     const domain = match?.[1]
+      const domain = match?.[1]
 
-  //     return { ...rest, url, domain}
-  //   })
-  // })
+      return { ...rest, url, domain}
+    })
+  })
 </script>
 
 <div>

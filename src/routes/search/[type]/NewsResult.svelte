@@ -12,26 +12,19 @@
   let isShowBookmarkList: boolean = false;
 
   /*20 ITEMS TO POPULATE DUMMY NEWS RESULT DATA*/
-  let results: NewsResult[] = Array.from({ length: 20 }, (_) => ({
-    date:"2024-02-19T00:00:00+00:00",
-    title:"Gazprom grapples with collapse in sales to Europe",
-    body:"Europe has defied expectations by breaking its addiction to Russian gas, and the state-run gas monopoly — Putin's trump card when he launched his full-scale invasion of Ukraine — has become one of the war's biggest corporate casualties.",
-    url:"https://www.ft.com/content/e1b65044-1a97-429a-b1e2-c337a343ec2a?_hsenc=p2ANqtz-9_bC8IWBZHauNHave1d_DlUHh7MMpaFubvfX68bbozhCqCzvV3ZMUi3b-phSv3v1BPFy4F",
-    image:"https://www.ft.com/__origami/service/image/v2/images/raw/https://d1e00ek4ebabms.cloudfront.net/production/be963363-7adb-4803-9264-3f5129936f25.jpg?source=next-article&fit=scale-down&quality=highest&width=700&dpr=1",
-    source:"The Financial Times",
-  }));
-
-  /*20 ITEMS TO POPULATE DUMMY NEWS BOOKMARKS DATA*/
-  // let bookmarks: NewsBookmark[] = Array.from({ length: 20 }, (_) => ({
-  //   title: 'Gazprom grapples with collapse in sales to Europe',
-  //   url: 'https://www.ft.com/content/e1b65044-1a97-429a-b1e2-c337a343ec2a',
-  //   source: 'The Financial Time'
+  // let results: NewsResult[] = Array.from({ length: 20 }, (_) => ({
+  //   date:"2024-02-19T00:00:00+00:00",
+  //   title:"Gazprom grapples with collapse in sales to Europe",
+  //   body:"Europe has defied expectations by breaking its addiction to Russian gas, and the state-run gas monopoly — Putin's trump card when he launched his full-scale invasion of Ukraine — has become one of the war's biggest corporate casualties.",
+  //   url:"https://www.ft.com/content/e1b65044-1a97-429a-b1e2-c337a343ec2a?_hsenc=p2ANqtz-9_bC8IWBZHauNHave1d_DlUHh7MMpaFubvfX68bbozhCqCzvV3ZMUi3b-phSv3v1BPFy4F",
+  //   image:"https://www.ft.com/__origami/service/image/v2/images/raw/https://d1e00ek4ebabms.cloudfront.net/production/be963363-7adb-4803-9264-3f5129936f25.jpg?source=next-article&fit=scale-down&quality=highest&width=700&dpr=1",
+  //   source:"The Financial Times",
   // }));
 
-  // let results: NewsResult[]
-  // searchNewsResult.subscribe((value: NewsResult[]) => {
-  //   results = value
-  // })
+  let results: NewsResult[]
+  searchNewsResult.subscribe((value: NewsResult[]) => {
+    results = value
+  })
 
   let bookmarks: NewsBookmark[]
   searchNewsBookmark.subscribe((value: NewsBookmark[]) => {
