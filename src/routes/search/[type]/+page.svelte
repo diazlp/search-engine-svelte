@@ -112,7 +112,7 @@
 		flex: 1;
 		margin-left: 2rem;
 
-		@media (min-width: 1280px) {
+		@media (min-width: 1024px) {
       margin-left: 11rem;
     }
   }

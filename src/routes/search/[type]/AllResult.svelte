@@ -2,6 +2,7 @@
 	import { searchAllResult } from '../../../stores'
   import { type AllResult } from '$lib/types/interface'
 
+  /*20 ITEMS TO POPULATE DUMMY ALL RESULT DATA*/
   let results: AllResult[] = Array.from({ length: 20 }, (_, index) => ({
     position: index + 1,
     url: 'https://diazlinggaputra.vercel.app/',

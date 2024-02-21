@@ -22,3 +22,9 @@ export interface NewsResult {
   image: string;
   source: string;
 }
+
+export interface NewsBookmark {
+  title: string;
+  url: string;
+  source: string;
+}

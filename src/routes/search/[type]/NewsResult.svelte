@@ -1,11 +1,17 @@
 <script lang="ts">
-  import { searchNewsResult } from "../../../stores";
-  import { type NewsResult } from '$lib/types/interface';
+  import { searchNewsResult, searchNewsBookmark } from "../../../stores";
+  import { type NewsResult, type NewsBookmark } from '$lib/types/interface';
   import { formatDate } from "$lib/utils";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineCamera from "svelte-icons-pack/ai/AiOutlineCamera";
-  import BiSolidTrashAlt from "svelte-icons-pack/bi/BiSolidTrashAlt";
+  import AiOutlineFieldTime from "svelte-icons-pack/ai/AiOutlineFieldTime";
+  import FaBookmark from "svelte-icons-pack/fa/FaBookmark";
+  import FaSolidBookmark from "svelte-icons-pack/fa/FaSolidBookmark";
+  import FaSolidTrash from "svelte-icons-pack/fa/FaSolidTrash";
 
+  let isShowBookmarkList: boolean = false;
+
+  /*20 ITEMS TO POPULATE DUMMY NEWS RESULT DATA*/
   let results: NewsResult[] = Array.from({ length: 20 }, (_) => ({
     date:"2024-02-19T00:00:00+00:00",
     title:"Gazprom grapples with collapse in sales to Europe",
@@ -15,46 +21,52 @@
     source:"The Financial Times",
   }));
 
+  /*20 ITEMS TO POPULATE DUMMY NEWS BOOKMARKS DATA*/
+  // let bookmarks: NewsBookmark[] = Array.from({ length: 20 }, (_) => ({
+  //   title: 'Gazprom grapples with collapse in sales to Europe',
+  //   url: 'https://www.ft.com/content/e1b65044-1a97-429a-b1e2-c337a343ec2a',
+  //   source: 'The Financial Time'
+  // }));
+
   // let results: NewsResult[]
   // searchNewsResult.subscribe((value: NewsResult[]) => {
   //   results = value
   // })
+
+  let bookmarks: NewsBookmark[]
+  searchNewsBookmark.subscribe((value: NewsBookmark[]) => {
+    bookmarks = value
+  })
+
+  function toggleReadingList() {
+    const bookmarkEl = document.querySelector('.result-bookmark');
+
+    if(isShowBookmarkList) {
+      isShowBookmarkList = false
+      bookmarkEl?.classList.remove('hidden');
+    } else {
+      isShowBookmarkList = true
+      bookmarkEl?.classList.add('hidden');
+    }
+  }
+
+  function handleBookmarkNews(record: NewsResult) {
+    searchNewsBookmark.update((prevState) => [...prevState, {title: record.title, url: record.url, source: record.source}])
+  }
+
+  function handleUnbookmarkNews(record: NewsResult | NewsBookmark) {
+    searchNewsBookmark.update((prevState) => prevState.filter(item => item.title !== record.title));
+  }
 </script>
 
 <div class="results-wrapper">
   <div class="result-news-wrapper">
     <nav>
-      <button>
+      <button on:click={toggleReadingList}>
         My Reading List
       </button>
     </nav>
     <div class="result-news">
-      <div class="result-item">
-        <div class="result-image">
-          <img src="https://www.ft.com/__origami/service/image/v2/images/raw/https://d1e00ek4ebabms.cloudfront.net/production/be963363-7adb-4803-9264-3f5129936f25.jpg?source=next-article&fit=scale-down&quality=highest&width=700&dpr=1" alt="News" />
-        </div>
-        
-        <h2 class="result-title">
-          <a rel="noopener" href="https://www.ft.com/content/e1b65044-1a97-429a-b1e2-c337a343ec2a?_hsenc=p2ANqtz-9_bC8IWBZHauNHave1d_DlUHh7MMpaFubvfX68bbozhCqCzvV3ZMUi3b-phSv3v1BPFy4F" target="_blank">
-            Gazprom grapples with collapse in sales to Europe
-          </a>
-        </h2>
-    
-        <div class="result-source">
-          <span class="result-source-url">
-            <a rel="noopener" href="https://www.ft.com/content/e1b65044-1a97-429a-b1e2-c337a343ec2a?_hsenc=p2ANqtz-9_bC8IWBZHauNHave1d_DlUHh7MMpaFubvfX68bbozhCqCzvV3ZMUi3b-phSv3v1BPFy4F" target="_blank">
-              The Financial Times
-            </a>
-          </span>
-          <span class="result-source-time">
-            | Mon, 19 February 2024
-          </span>
-        </div>
-    
-        <div class="result-snippet">
-          Europe has defied expectations by breaking its addiction to Russian gas, and the state-run gas monopoly — Putin's trump card when he launched his full-scale invasion of Ukraine — has become one of the war's biggest corporate casualties.
-        </div>
-      </div>
       {#each results as result}
         <div class="result-item">
           <div class="result-image">
@@ -66,6 +78,15 @@
           </div>
           
           <h2 class="result-title">
+            {#if Object.keys(bookmarks.filter((bookmark) => bookmark.title === result.title)).length}
+              <button on:click={() => handleUnbookmarkNews(result)}>
+                <Icon src={FaSolidBookmark} color="orangered" size="15" />
+              </button>
+            {:else}
+              <button on:click={() => handleBookmarkNews(result)}>
+                <Icon src={FaBookmark} color="orangered" size="15" />
+              </button>
+            {/if}
             <a rel="noopener" href={result.url} target="_blank">
               {result.title}
             </a>
@@ -89,20 +110,28 @@
       {/each}
     </div>
   </div>
-  <div class="result-bookmark">
+  <div class="result-bookmark" class:hidden={isShowBookmarkList}>
     <div class="bookmark-header">
       <h3>Reading List</h3>
     </div>
     <div class="bookmark-list">
-      <div class="bookmark-item">
-        <div>
-          <h4>Gazprom grapples with collapse in sales to Europe</h4>
-          <p>News Source</p>
+      {#if !bookmarks.length}
+        <div class="bookmark-notification">
+          <Icon src={AiOutlineFieldTime} color="gray" size="100"/>
+          <h4>Reading List will appear here</h4>
         </div>
-        <button>
-          <Icon src={BiSolidTrashAlt} color="white" size="25"/>
-        </button>
-      </div>
+      {/if}
+      {#each bookmarks as bookmark}
+        <div class="bookmark-item">
+          <div>
+            <h4><a href={bookmark.url} target="_blank" rel="noopener">{bookmark.title}</a></h4>
+            <p>{bookmark.source}</p>
+          </div>
+          <button on:click={() => handleUnbookmarkNews(bookmark)}>
+            <Icon src={FaSolidTrash} color="orangered" size="14"/>
+          </button>
+        </div>
+      {/each}
     </div>
   </div>
 </div>
@@ -122,11 +151,12 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      max-width: 36rem;
+      max-width: 37rem;
       line-height: 2rem;
       margin: 1rem 0;
 
       button {
+        display: none;
         font-size: 0.875rem;
         line-height: 1.25rem;
         font-weight: 600;
@@ -134,12 +164,16 @@
         cursor: pointer;
         background: transparent;
         border: none;
+
+        @media (min-width: 1310px) {
+          display: block;
+        }
       }
     }
 
     .result-news {
       margin-bottom: 2rem;
-      max-width: 36rem;
+      max-width: 37rem;
       justify-self: flex-start;
 
       .result-item {
@@ -182,6 +216,14 @@
           margin: 0;
           margin-bottom: 0.15em;
           max-width: 100%;
+
+          button {
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 0.25rem;
+          }
+          
           a {
             color: var(--color-theme-2);
           }
@@ -227,9 +269,10 @@
       flex: 1;
       width: 100%;
       margin: 0 4rem;
+      display: none;
       position: fixed; 
       top: 9rem; 
-      right: 3vw; 
+      right: 2vw; 
       max-width: 29rem;
       width: 100%; 
       font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -240,6 +283,10 @@
       background-color: var(--color-bg-2);
       border-radius: 8px;
       font-size: 15px;
+
+      @media (min-width: 1310px) {
+        display: block;
+      }
 
       .bookmark-header {
         padding: 0.25rem 0.75rem;
@@ -260,7 +307,7 @@
         max-height: 50vh;
         
         .bookmark-item {
-          background-color: #f2f2f2;
+          background-color: #fff;
           padding: 0.75rem;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           display: flex;
@@ -271,6 +318,11 @@
             font-size: 15px;
             font-weight: bold;
             margin: 0;
+            cursor: pointer;
+
+            a {
+              color: var(--color-theme-2);
+            }
           }
 
           p {
@@ -280,19 +332,32 @@
           }
 
           button {
-            background-color: var(--color-theme-1); /* Red color for delete button */
+            background: transparent;
             color: #ffffff;
             border: none;
             padding-top: 4px;
             border-radius: 4px;
             cursor: pointer;
+          }
+        }
 
-            &:hover {
-              background-color: #cc4c3f;
-            }
+        .bookmark-notification {
+          padding: 2rem;
+          text-align: center;
+          background-color: #fff;
+
+          h4 {
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            color: gray;
           }
         }
       }
+    }
+
+    .hidden {
+      visibility: hidden;
     }
   }
 </style>

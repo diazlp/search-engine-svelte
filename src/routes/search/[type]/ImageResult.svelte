@@ -2,6 +2,7 @@
   import { searchImagesResult } from "../../../stores";
   import { type ImageResult } from '$lib/types/interface'
 
+  /*20 ITEMS TO POPULATE DUMMY IMAGE RESULT DATA*/
   let results: ImageResult[] = Array.from({ length: 20 }, (_) => ({
     title: 'Diaz Linggaputra - Software Developer',
     image: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Raline_Shah_in_an_interview_with_Anas_Bukhash.png',
