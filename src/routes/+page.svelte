@@ -7,7 +7,7 @@
 
 <svelte:head>
 	<title>Search Party Engine</title>
-	<meta name="description" content="Search Party Engine - your friendly search party to the rescue to helps you surf the internet with ease" />
+	<meta name="description" content="Your friendly search party to helps you surf the internet with ease" />
 </svelte:head>
 
 <div class="app">

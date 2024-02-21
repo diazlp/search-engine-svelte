@@ -1,6 +1,6 @@
 {
 	"name": "search-engine-svelte",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "Basic & Elementary Search Engine | Written with SvelteKit",
 	"private": true,
 	"author": "Diaz Linggaputra",
