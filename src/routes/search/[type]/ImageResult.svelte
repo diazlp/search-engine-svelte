@@ -136,7 +136,6 @@
 
         img {
           width: 100%;
-          max-width: 200px;
           display: block;
           margin-left: auto;
           margin-right: auto;
