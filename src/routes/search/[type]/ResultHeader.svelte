@@ -87,9 +87,10 @@
 
 		<div class="search-input">
 			<input
-			type="text"
-			bind:value={searchQuery}
-			on:keydown={handleKeyDown}
+				type="text"
+				placeholder="e.g. Software Developer"
+				bind:value={searchQuery}
+				on:keydown={handleKeyDown}
 			/>
 			{#if searchQuery}
 				<button on:click={handleResetSearch}>
