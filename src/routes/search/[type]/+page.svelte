@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { selectedTab, searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
+	import { selectedTab, isLoadingResult, searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
 	import { SearchType } from '$lib/types/enum'
 	// import { fly } from 'svelte/transition'
 	import { page } from '$app/stores'
@@ -15,10 +15,10 @@
 	let lastScrollTop = 0;
   let scrollingUp = true;
 	let selected_tab: string;
+	let is_loading_result: boolean;
 
-	selectedTab.subscribe((value) => {
-		selected_tab = value
-	})
+	selectedTab.subscribe((value) => selected_tab = value)
+	isLoadingResult.subscribe((value) => is_loading_result = value)
 
 	function handleScroll(): void {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -44,26 +44,32 @@
   });
 
 	async function handleFetchResult(): Promise<void> {
-		/*Fetch current query params */
-		const response = await fetch(`/search?q=${queryParams}&type=${type}`)
-		const data = await response.json()
-
-		/*Update corresponding store*/
-		switch(type) {
-			case SearchType.ALL:
-				searchAllResult.set(data.results)
-				break;
-
-			case SearchType.IMAGES:
-				searchImagesResult.set(data.result);
-				break;
-
-			case SearchType.NEWS:
-				searchNewsResult.set(data.news);
-				break;
-
-			default:
-				break;
+		isLoadingResult.set(true)
+		try {
+			/*Fetch current query params */
+			const response = await fetch(`/search?q=${queryParams}&type=${type}`)
+			const data = await response.json()
+	
+			/*Update corresponding store*/
+			switch(type) {
+				case SearchType.ALL:
+					searchAllResult.set(data.results)
+					break;
+	
+				case SearchType.IMAGES:
+					searchImagesResult.set(data.result);
+					break;
+	
+				case SearchType.NEWS:
+					searchNewsResult.set(data.news);
+					break;
+	
+				default:
+					break;
+			}
+			isLoadingResult.set(false)
+		} catch (error) {
+			isLoadingResult.set(false)
 		}
 	}
 
@@ -73,6 +79,10 @@
 </script>
 
 <div class="app">
+	{#if is_loading_result}
+		<div class="loading-result"></div>
+	{/if}
+
 	<header class:visible={scrollingUp}>
 		<ResultHeader />
 		<ResultNav />

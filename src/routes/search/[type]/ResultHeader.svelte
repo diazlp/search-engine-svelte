@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
 	import { goto } from '$app/navigation'
   import logo from '$lib/images/paaty-logo.png'
-	import { selectedTab, searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
+	import { selectedTab, isLoadingResult, searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
 	import { SearchType } from '$lib/types/enum'
 	import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineSearch  from 'svelte-icons-pack/ai/AiOutlineSearch';
@@ -19,35 +19,41 @@
 	let searchQuery: string = "";
 
 	async function handleSearch(): Promise<void> {
-		if (searchQuery.trim() !== "") {
-			const { type } = $page.params
-			
-			/* Redirect to corresponding results page with the search query */
-			goto(`/search/${type}?q=${searchQuery}`)
-
-			/*Fetch the current input*/
-			const response = await fetch(`/search?q=${searchQuery}&type=${type}`)
-			const data = await response.json()
-
-			/*Update corresponding store*/
-			switch(type) {
-				case SearchType.ALL:
-					searchAllResult.set(data.results);
-					break;
-
-				case SearchType.IMAGES:
-					searchImagesResult.set(data.result);
-					break;
-
-				case SearchType.NEWS:
-					searchNewsResult.set(data.news);
-					break;
-
-				default:
-					break;
+		isLoadingResult.set(true)
+		try {
+			if (searchQuery.trim() !== "") {
+				const { type } = $page.params
+				
+				/* Redirect to corresponding results page with the search query */
+				goto(`/search/${type}?q=${searchQuery}`)
+	
+				/*Fetch the current input*/
+				const response = await fetch(`/search?q=${searchQuery}&type=${type}`)
+				const data = await response.json()
+	
+				/*Update corresponding store*/
+				switch(type) {
+					case SearchType.ALL:
+						searchAllResult.set(data.results);
+						break;
+	
+					case SearchType.IMAGES:
+						searchImagesResult.set(data.result);
+						break;
+	
+					case SearchType.NEWS:
+						searchNewsResult.set(data.news);
+						break;
+	
+					default:
+						break;
+				}
+	
+				handleResetSearch()
 			}
-
-			handleResetSearch()
+			isLoadingResult.set(false)
+		} catch (error) {
+			isLoadingResult.set(false)
 		}
 	}
 

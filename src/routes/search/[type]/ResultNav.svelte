@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/stores'
-	import { selectedTab, searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
+	import { selectedTab, isLoadingResult, searchAllResult, searchImagesResult, searchNewsResult } from '../../../stores'
 	import { SearchType } from '$lib/types/enum'
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import BsSearch from "svelte-icons-pack/bs/BsSearch";
@@ -15,34 +15,40 @@
 	})
 
 	async function handleSelectedTab(name: string): Promise<void> {
-		const queryParams = $page.url.searchParams.get('q')
-	
-		/*Update selectedTab store*/
-		selectedTab.set(name)
-
-		/*Redirecting to respective page*/
-    goto(`${name}?q=${queryParams}`)
+		isLoadingResult.set(true)
+		try {
+			const queryParams = $page.url.searchParams.get('q')
 		
-		/*Fetch the current input*/
-		const response = await fetch(`/search?q=${queryParams}&type=${name}`)
-		const data = await response.json()
-
-		/*Update corresponding store*/
-		switch(name) {
-			case SearchType.ALL:
-				searchAllResult.set(data.results);
-				break;
-
-			case SearchType.IMAGES:
-				searchImagesResult.set(data.result);
-				break;
-
-			case SearchType.NEWS:
-				searchNewsResult.set(data.news);
-				break;
-
-			default:
-				break;
+			/*Update selectedTab store*/
+			selectedTab.set(name)
+	
+			/*Redirecting to respective page*/
+			goto(`${name}?q=${queryParams}`)
+			
+			/*Fetch the current input*/
+			const response = await fetch(`/search?q=${queryParams}&type=${name}`)
+			const data = await response.json()
+	
+			/*Update corresponding store*/
+			switch(name) {
+				case SearchType.ALL:
+					searchAllResult.set(data.results);
+					break;
+	
+				case SearchType.IMAGES:
+					searchImagesResult.set(data.result);
+					break;
+	
+				case SearchType.NEWS:
+					searchNewsResult.set(data.news);
+					break;
+	
+				default:
+					break;
+			}
+			isLoadingResult.set(false)
+		} catch (error) {
+			isLoadingResult.set(false)
 		}
 	}
 </script>

@@ -2,6 +2,7 @@ import { type Writable, writable } from 'svelte/store'
 import { type AllResult, type ImageResult, type NewsResult, type NewsBookmark } from '$lib/types/interface'
 
 export const selectedTab: Writable<string> = writable('all')
+export const isLoadingResult: Writable<boolean> = writable(false);
 
 export const searchAllResult: Writable<AllResult[]> = writable([])
 export const searchImagesResult: Writable<ImageResult[]> = writable([])
