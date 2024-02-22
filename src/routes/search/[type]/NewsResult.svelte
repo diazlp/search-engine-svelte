@@ -21,6 +21,7 @@
   //   source:"The Financial Times",
   // }));
 
+  /*COMMENT BELOW ON DEVELOPMENT*/
   let results: NewsResult[]
   searchNewsResult.subscribe((value: NewsResult[]) => {
     results = value

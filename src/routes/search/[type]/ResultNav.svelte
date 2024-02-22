@@ -30,17 +30,14 @@
 		/*Update corresponding store*/
 		switch(name) {
 			case SearchType.ALL:
-				// searchAllResult.set(data.items);
 				searchAllResult.set(data.results);
 				break;
 
 			case SearchType.IMAGES:
-				// searchImagesResult.set(data.items);
 				searchImagesResult.set(data.result);
 				break;
 
 			case SearchType.NEWS:
-				// searchNewsResult.set(data.items);
 				searchNewsResult.set(data.news);
 				break;
 
@@ -91,6 +88,11 @@
   			line-height: 1.5rem;
 				gap: 0.350rem;
 				color: gray;
+				font-size: 0.8rem;
+
+				@media (min-width: 1024px) {
+					font-size: 0.9rem;
+				}
 			}
 			
 			button[aria-current=true] {

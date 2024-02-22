@@ -11,6 +11,7 @@
   //   domain: 'github.com'
   // }));
 
+  /*COMMENT BELOW ON DEVELOPMENT*/
   let results: AllResult[]
   searchAllResult.subscribe((value: AllResult[]) => {
     results = value?.map(({url, ...rest}: AllResult) => {
@@ -87,7 +88,6 @@
 		  }
       .ads {
         color: rgb(255, 255, 255);
-        // background-olor: rgb(255, 166, 0);
         background-color: var(--color-theme-1);
         padding: 1px 3px;
         border-radius: 5px;
