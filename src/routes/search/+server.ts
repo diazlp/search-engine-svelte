@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { TOKEN, GOOGLE_SEARCH_ALL_API_KEY, GOOGLE_SEARCH_IMAGES_API_KEY, GOOGLE_SEARCH_NEWS_API_KEY } from '$env/static/private';
+import { RAINDROP_TOKEN, GOOGLE_SEARCH_ALL_API_KEY, GOOGLE_SEARCH_IMAGES_API_KEY, GOOGLE_SEARCH_NEWS_API_KEY } from '$env/static/private';
 import { SearchType } from '$lib/types/enum.js';
 
 export async function GET({ url }) {
@@ -21,7 +21,7 @@ export async function GET({ url }) {
   /*COMMENT BELOW ON DEVELOPMENT*/
   if(typeParams === SearchType.ALL) {
     response = await fetch(
-      `https://google-search74.p.rapidapi.com/?query=${queryParams}&limit=20&related_keyword='false'`,
+      `https://google-search74.p.rapidapi.com/?query=${queryParams}&limit=50&related_keyword='false'`,
       {
         cache: 'force-cache',
         method: 'GET',
@@ -64,7 +64,7 @@ export async function GET({ url }) {
         body: JSON.stringify({
           text: queryParams,
 		      region: "wt-wt",
-          max_results: 25
+          max_results: 100
         })
       },
     )
