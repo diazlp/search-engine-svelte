@@ -1,38 +1,52 @@
-# create-svelte
+# Search Party Engine
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Simple search engine integrated with the Google Search API. This project is built using SvelteKit and SCSS.
 
-## Creating a project
+## Table of Contents
 
-If you're seeing this, you've probably already done this step. Congrats!
+-   [Introduction](#introduction)
+-   [Features](#features)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [License](#license)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Introduction
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Search Party Engine is a lightweight search engine application that utilizes the power of the Google Search API to provide users with relevant search results. It is built with simplicity and efficiency in mind, your friendly search party to helps you surf the internet with ease.
 
-## Developing
+## Features
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+-   **Google Search Integration**: Utilizes the Google Search API to fetch search results.
+-   **Responsive Design**: Built with responsiveness in mind, ensuring a seamless experience across various devices and screen sizes.
+-   **Customizable Styling**: Styled using SCSS, making it easy to customize the look and feel of the application to suit your preferences.
+-   **Fast and Lightweight**: Designed to be fast and lightweight, providing quick search results without unnecessary bloat.
+-   **Easy to Use**: Simple and intuitive user interface, making it easy for users to perform searches with ease.
 
-```bash
-npm run dev
+## Installation
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+To run the Search Party Engine locally, follow these steps:
 
-## Building
+1.  Clone the repository:
+   
+    `git clone https://github.com/diazlp/search-engine-svelte.git` 
+    
+2.  Navigate into the project directory:
+    
+    `cd search-engine-svelte` 
+    
+3.  Install dependencies:
+    
+    `npm install` 
+    
 
-To create a production version of your app:
+## Usage
 
-```bash
-npm run build
-```
+Once the installation is complete, you can start the development server:
 
-You can preview the production build with `npm run preview`.
+`npm run dev` 
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+This will start the development server, and you can access the Search Party Engine by navigating to http://localhost:5173 in your web browser.
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/diazlp/search-engine-svelte?tab=MIT-1-ov-file). You are permitted to use, modify, and distribute this project for both personal and commercial purposes, provided that the copyright notice **Diaz Linggaputra** remains intact in all copies or substantial portions of the project.
